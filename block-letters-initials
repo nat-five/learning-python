@@ -1,0 +1,12 @@
+# My name is Natalia Kunzmann
+# I am 42 years old
+nk ="""
+N   N  K   K
+NN  N  K  K
+N N N  K K
+N  NN  KK
+N   N  K K
+N   N  K  K
+N   N  K   K
+"""
+print(nk)
