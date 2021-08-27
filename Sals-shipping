@@ -1,1 +1,29 @@
+weight = float(input("Enter package weight in lb: "))
 
+# Ground Shipping
+if weight <= 2:
+  cost_ground = 20 + weight * 1.50
+elif 2 < weight <= 6:
+  cost_ground = 20 + weight * 3.00
+elif 6 < weight <= 10:
+  cost_ground = 20 + weight * 4.00
+else:
+  cost_ground = 20 + weight * 4.75
+
+# Premium Ground Shipping
+cost_premium_ground = 125.0
+
+# Drone Shipping
+if weight <= 2:
+  cost_drone = weight * 4.50
+elif 2 < weight <= 6:
+  cost_drone = weight * 9.00
+elif 6 < weight <= 10:
+  cost_drone = weight * 12.00
+else:
+  cost_drone = weight * 14.25
+
+print("Shipping costs for a", weight, "lb package:")
+print("Ground Shipping: $", cost_ground)
+print("Ground Premium: $", cost_premium_ground)
+print("Drone Shipping: $", round(cost_drone, 2))
