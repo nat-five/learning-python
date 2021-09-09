@@ -142,7 +142,8 @@ total_sales = 0
 for sale in sales:
   sale = float(sale.strip("$"))
   total_sales += sale
-# print(total_sales)
+print("***Daily Summary***")
+print("Total amount of sales:\n${}".format(round(total_sales, 2)))
 
 thread_sold_split = []
 for thread in thread_sold:
@@ -160,6 +161,6 @@ def color_count(color):
 # print(color_count("white"))
 
 colors = ['red','yellow','green','white','black','blue','purple']
-print("Todays sales per color:")
+print("Sales per color:")
 for color in colors:
   print("{count} threads of the color {color}.".format(color=color, count=color_count(color)))
