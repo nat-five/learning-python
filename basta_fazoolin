@@ -1,47 +1,103 @@
-import datetime
-
-class Menu():
+# Create Menus:
+class Menu:
     
   def __init__(self, name, items, start_time, end_time):
     self.name = name
     self.items = items
-    self.start_time = start_time
-    self.end_time = end_time
+    self.start_time = str(start_time)
+    self.end_time = str(end_time)
 
   def __repr__(self):
-    menu_description_string = self.name + " - Serving time: " + self.start_time.strftime("%-I%p") + " to " + self.end_time.strftime("%-I%p")
+    menu_description_string = self.name + " menu - Available from " + str(self.start_time[:2]) + ":" + str(self.start_time[2:]) + " to " + str(self.end_time[:2]) + ":" + str(self.end_time[2:])
     return menu_description_string
 
+  def calculate_bill(self, purchased_items):
+    total_bill = 0
+    for item in purchased_items:
+      if item in self.items:
+        total_bill += self.items[item]
+    return total_bill
 
-brunch = Menu("Brunch",
-  {
-    'pancakes': 7.50, 'waffles': 9.00, 'burger': 11.00, 
-    'home fries': 4.50, 'coffee': 1.50, 'espresso': 3.00, 
-    'tea': 1.00, 'mimosa': 10.50, 'orange juice': 3.50
-    },
-    datetime.time(11), datetime.time(16))
+# Brunch menu:
+brunch_items = {
+  'pancakes': 7.50, 'waffles': 9.00, 'burger': 11.00, 
+  'home fries': 4.50, 'coffee': 1.50, 'espresso': 3.00, 
+  'tea': 1.00, 'mimosa': 10.50, 'orange juice': 3.50
+  }
+    
+brunch_menu = Menu("Brunch", brunch_items, 1100, 1600)
 
-early_bird = Menu("Early-bird",
-  {
-   'salumeria plate': 8.00, 'salad and breadsticks (serves 2, no refills)': 
-   14.00, 'pizza with quattro formaggi': 9.00, 'duck ragu': 17.50, 
-   'mushroom ravioli (vegan)': 13.50, 'coffee': 1.50, 'espresso': 3.00, 
-  },
-  datetime.time(15), datetime.time(18))
+# Early-bird menu:
+early_bird_items = {
+  'salumeria plate': 8.00, 'salad and breadsticks (serves 2, no refills)': 14.00, 
+  'pizza with quattro formaggi': 9.00, 'duck ragu': 17.50,
+  'mushroom ravioli (vegan)': 13.50, 'coffee': 1.50, 'espresso': 3.00
+  }
 
-dinner = Menu("Dinner",
-  {
-   'crostini with eggplant caponata': 13.00, 'ceaser salad': 16.00, 
-   'pizza with quattro formaggi': 11.00, 'duck ragu': 19.50, 
-   'mushroom ravioli (vegan)': 13.50, 'coffee': 2.00, 'espresso': 3.00, 
-  },
-  datetime.time(17), datetime.time(23))
+early_bird_menu = Menu("Early-bird", early_bird_items, 1500, 1800)
 
-kids = Menu("Kids",
-  {
-   'chicken nuggets': 6.50, 'fusilli with wild mushrooms': 12.00, 
-   'apple juice': 3.00
-  },
-  datetime.time(11), datetime.time(21))
+# Dinner menu:
+dinner_items = {
+  'crostini with eggplant caponata': 13.00, 'ceaser salad': 16.00, 
+  'pizza with quattro formaggi': 11.00, 'duck ragu': 19.50, 
+  'mushroom ravioli (vegan)': 13.50, 'coffee': 2.00, 'espresso': 3.00
+  } 
+  
+dinner_menu = Menu("Dinner", dinner_items, 1700, 2300)
 
-print(early_bird)
+# Kids menu:
+kids_items = {
+  'chicken nuggets': 6.50, 'fusilli with wild mushrooms': 12.00, 
+  'apple juice': 3.00
+  }
+
+kids_menu = Menu("Kids", kids_items, 1100, 2100)
+
+basta_menus = [brunch_menu, early_bird_menu, dinner_menu, kids_menu]
+
+# Create Franchise:
+class Franchise:
+  def __init__(self, address, menus):
+    self.address = address
+    self.menus = menus
+
+  def __repr__(self):
+    return self.address
+
+  def available_menus(self, time):
+    available_menus = []
+    for menu in self.menus:
+      if int(menu.start_time) <= time <= int(menu.end_time):
+        available_menus.append(menu)
+    return available_menus
+
+# Create Basta Franchises:
+flagship_store = Franchise("1232 West End Road", basta_menus)
+
+new_installment = Franchise("12 East Mulberry Street", basta_menus)
+
+basta_franchises = [flagship_store, new_installment]
+# print(flagship_store.available_menus(1700))
+
+# Create Businesses:
+class Business:
+  def __init__(self, name, franchises):
+    self.name = name
+    self.franchises = franchises
+
+# Create Basta Fazoolin Business:
+basta_business = Business("Basta Fazoolin' with my Heart", basta_franchises)
+
+# Create Arepa Menu:
+arepas_items = {
+  'arepa pabellon': 7.00, 'pernil arepa': 8.50,
+  'guayanes arepa': 8.00, 'jamon arepa': 7.50
+  }
+
+arepas_menu = Menu("Take a' Arepa", arepas_items, 1000, 2000)
+
+# Create Arepas franchises:
+arepas_place = Franchise("189 Fitzgerald Avenue", arepas_menu)
+
+#Create Arepa Business:
+arepa_business = Business("Take a' Arepa", arepas_place)
